@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Giyu Tomioka</title>
+    <style>
+        body {
+            margin: 0;
+            background-color: #121212;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        canvas {
+            /* Força o navegador a não desfocar/suavizar os pixels ao ampliar */
+            image-rendering: pixelated;
+            image-rendering: crisp-edges;
+            background-color: #3b4238; /* Fundo do anime */
+            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+            border-radius: 4px;
+            width: 512px;  /* Ampliado 8x na tela */
+            height: 640px;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Resolução nativa em pixels: 64 de largura x 80 de altura -->
+<canvas id="tomiokaCanvas" width="64" height="80"></canvas>
+
+<script>
+const canvas = document.getElementById('tomiokaCanvas');
+const ctx = canvas.getContext('2d');
+
+const C = {
+    pele: '#fde2d1',
+    somPele: '#e1a68d',
+    cab: '#16192b',
+    olho: '#1b4f9b',
+    olhoC: '#3b82f6',
+    uni: '#141722',
+    bot: '#d29b26',
+    cin: '#e8e8e8',
+    hVinho: '#882244',
+    hVinhoS: '#5e152f',
+    hAma: '#f3bc42',
+    hVerde: '#287d55',
+    hLar: '#e67e22',
+    katCabo: '#f5f5f5',
+    katVerm: '#a81c3b'
+};
+
+function p(x, y, color) {
+    ctx.fillStyle = color;
+    ctx.fillRect(x, y, 1, 1);
+}
+
+function rect(x, y, w, h, color) {
+    ctx.fillStyle = color;
+    ctx.fillRect(x, y, w, h);
+}
+
+function desenhar() {
+    ctx.clearRect(0, 0, 64, 80);
+
+    // 1. CABELO TRASEIRO (Nuca)
+    rect(18, 16, 28, 22, C.cab);
+    rect(12, 28, 8, 18, C.cab);
+    rect(44, 28, 8, 18, C.cab);
+    rect(10, 38, 4, 12, C.cab);
+    rect(50, 38, 4, 12, C.cab);
+
+    // 2. HAORI - DIREITO (Vinho)
+    rect(4, 34, 18, 46, C.hVinho);
+    rect(2, 42, 6, 38, C.hVinhoS);
+
+    // 3. HAORI - ESQUERDO (Padrão Geométrico em Pixels)
+    rect(42, 34, 18, 46, C.hAma);
+    for (let y = 34; y < 80; y += 4) {
+        for (let x = 42; x < 60; x += 4) {
+            if ((x + y) % 8 === 0) {
+                rect(x, y, 2, 2, C.hVerde);
+            } else if ((x + y) % 8 === 4) {
+                rect(x, y, 2, 2, C.hLar);
+            }
+        }
+    }
+
+    // 4. UNIFORME (Centro)
+    rect(22, 34, 20, 40, C.uni);
+    rect(31, 34, 2, 40, '#2d3345'); // Linha central
+
+    // Gola Alta
+    rect(27, 30, 10, 4, C.uni);
+    rect(27, 30, 10, 1, '#ffffff');
+    rect(27, 33, 10, 1, '#ffffff');
+
+    // Botões Dourados
+    p(31, 38, C.bot);
+    p(31, 46, C.bot);
+    p(31, 54, C.bot);
+    p(31, 62, C.bot);
+
+    // 5. CINTO BRANCO
+    rect(21, 70, 22, 5, C.cin);
+    rect(29, 69, 6, 7, '#999999'); // Fivela
+    rect(30, 70, 4, 5, C.cin);
+
+    // 6. KATANA (Cabo)
+    rect(38, 60, 3, 12, C.katCabo);
+    p(39, 62, C.katVerm);
+    p(39, 65, C.katVerm);
+    p(39, 68, C.katVerm);
+    rect(36, 71, 7, 2, C.katVerm); // Tsuba (Guarda)
+
+    // 7. ROSTO & PESCOÇO
+    rect(29, 26, 6, 5, C.pele); // Pescoço
+    rect(29, 29, 6, 2, C.somPele); // Sombra pescoço
+
+    // Formato da Cabeça
+    rect(24, 16, 16, 10, C.pele);
+    rect(25, 26, 14, 2, C.pele);
+    rect(27, 28, 10, 2, C.pele);
+    rect(29, 30, 6, 1, C.pele); // Queixo
+
+    // Olhos Azuis
+    rect(25, 21, 4, 3, C.olho);
+    rect(35, 21, 4, 3, C.olho);
+    rect(25, 23, 4, 1, C.olhoC);
+    rect(35, 23, 4, 1, C.olhoC);
+
+    // Cílios/Expressão Marcante
+    rect(24, 20, 6, 1, '#000000');
+    rect(34, 20, 6, 1, '#000000');
+
+    // Sobrancelhas Caídas/Sérias
+    p(24, 19, '#000000'); p(25, 19, '#000000'); p(26, 19, '#000000'); p(27, 19, '#000000');
+    p(36, 19, '#000000'); p(37, 19, '#000000'); p(38, 19, '#000000'); p(39, 19, '#000000');
+
+    // Nariz e Boca
+    p(31, 26, C.somPele);
+    rect(30, 28, 4, 1, '#663333');
+
+    // 8. CABELO FRONTAL / FRANJA
+    rect(22, 10, 20, 8, C.cab);
+    rect(20, 14, 24, 4, C.cab);
+    
+    // Mechas caindo no rosto
+    rect(22, 18, 3, 5, C.cab);
+    rect(27, 18, 2, 4, C.cab);
+    rect(31, 18, 2, 3, C.cab);
+    rect(35, 18, 2, 4, C.cab);
+    rect(39, 18, 3, 5, C.cab);
+
+    // Mechas nas laterais do rosto
+    rect(21, 22, 2, 6, C.cab);
+    rect(41, 22, 2, 6, C.cab);
+}
+
+desenhar();
+</script>
+
+</body>
+</html>

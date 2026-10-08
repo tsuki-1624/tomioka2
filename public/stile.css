@@ -1,0 +1,162 @@
+:root {
+    --bg-color: #09094a;
+    --card-bg: #0000fa91;
+    --primary: #000862;
+    --primary-hover: #022b78;
+    --text-main: #ffffff;
+    --text-muted: #a0a0b0;
+    --input-bg: #00004e;
+    --border-color: #1d1d24;
+    --radius: 8px;
+}
+
+* {
+margin: 0;
+padding: 0;
+box-sizing: border-box;
+font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+display: flex;
+justify-content: center;
+align-items: center;
+min-height: 100vh;
+background-color: #1e1e8e;
+}
+
+/* Container flexível alinhando os 3 elementos */
+.container-geral {
+display: flex;
+flex-direction: row;
+align-items: center;
+justify-content: center;
+gap: 40px; /* DISTÂNCIA ENTRE AS IMAGENS E O CARD - Ajuste aqui se quiser mais perto/longe */
+width: 100%;
+max-width: 1200px;
+padding: 20px;
+}
+
+/* Imagem da Esquerda */
+.imagem-login {
+width: 100%;
+max-width: 250px; /* Ajuste o tamanho da imagem da esquerda aqui */
+height: auto;
+border-radius: var(--radius);
+object-fit: cover;
+}
+
+/* Imagem da Direita */
+.imagem-secundaria {
+width: 100%;
+max-width: 250px; /* Ajuste o tamanho da imagem da direita aqui */
+height: auto;
+border-radius: var(--radius);
+object-fit: cover;
+}
+
+/* Card central */
+.card {
+background-color: var(--card-bg);
+width: 100%;
+max-width: 400px;
+padding: 2.5rem;
+border-radius: var(--radius);
+border: 1px solid var(--border-color);
+box-shadow: 0 10px 30px rgba(0, 9, 69, 0.7),
+            0 0 15px rgba(1, 12, 112, 0.6);
+}
+
+.card-header {
+text-align: center;
+margin-bottom: 2rem;
+}
+
+.badge {
+display: inline-block;
+background-color: rgba(1, 10, 86, 0.515);
+color: var(--primary);
+font-size: 0.75rem;
+font-weight: 700;
+text-transform: uppercase;
+letter-spacing: 1.5px;
+padding: 6px 12px;
+border-radius: 20px;
+border: 1px solid var(--primary);
+margin-bottom: 1rem;
+}
+
+.card-header h1 {
+font-size: 1.8rem;
+font-weight: 700;
+margin-bottom: 0.5rem;
+color: #ffffff;
+}
+
+.card-header p {
+color: var(--text-muted);
+font-size: 0.9rem;
+}
+
+.form {
+display: flex;
+flex-direction: column;
+gap: 1.25rem;
+}
+
+.form-group {
+display: flex;
+flex-direction: column;
+gap: 0.5rem;
+}
+
+.form-group label {
+font-size: 0.85rem;
+font-weight: 600;
+color: #ffffff;
+}
+
+.form-group input {
+background-color: var(--input-bg);
+border: 1px solid var(--border-color);
+border-radius: var(--radius);
+padding: 0.8rem 1rem;
+color: #ffffff;
+font-size: 0.95rem;
+outline: none;
+transition: all 0.3s ease;
+}
+
+.form-group input::placeholder {
+color: #a0a0b0;
+}
+
+.form-group input:focus {
+border-color: var(--primary);
+box-shadow: 0 0 8px rgba(230, 0, 35, 0.4);
+}
+
+.btn-submit {
+margin-top: 0.5rem;
+background-color: var(--primary);
+color: #ffffff;
+border: none;
+border-radius: var(--radius);
+padding: 0.9rem;
+font-size: 1rem;
+font-weight: 700;
+cursor: pointer;
+text-transform: uppercase;
+letter-spacing: 1px;
+transition: all 0.3s ease;
+}
+
+.btn-submit:hover {
+background-color: var(--primary-hover);
+box-shadow: 0 0 15px rgba(53, 27, 141, 0.6);
+transform: translateY(-2px);
+}
+
+.btn-submit:active {
+transform: translateY(0);
+}

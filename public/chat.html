@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WhatsApp Web</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="whatsapp-container">
+        <div class="chat-header">
+            <div class="header-left">
+                <div class="avatar">
+                    <img src="c6366403dded9260e142fd69a7856a18.jpg" alt="Giyu Tomioka">
+                </div>
+                <div class="status-info">
+                    <h2>Giyu Tomioka</h2>
+                    <span class="status-online">online</span>
+                </div>
+            </div>
+            <div class="header-actions">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <i class="fa-solid fa-paperclip"></i>
+                <i class="fa-solid fa-ellipsis-vertical"></i>
+            </div>
+        </div>
+
+        <div class="chat-messages" id="chat-messages">
+            <div class="message system">
+                <span>As mensagens são protegidas com criptografia de ponta.</span>
+            </div>
+
+            <div class="message character">
+                <p>oi.</p>
+                <span class="time">14:32</span>
+            </div>
+        </div>
+
+        <div class="chat-input-area">
+            <i class="fa-regular fa-face-smile icon-btn"></i>
+            <i class="fa-solid fa-plus icon-btn"></i>
+            <input type="text" placeholder="Digite uma mensagem" id="userInput">
+            <button id="sendBtn" class="send-btn">
+                <i class="fa-solid fa-paper-plane"></i>
+            </button>
+        </div>
+    </div>
+
+    <script>
+        const usuarioLogado = 'ROBERSON';
+
+        const caixaChat = document.querySelector('#chat-messages');
+        const inputMensagem = document.querySelector('#userInput');
+        const btnEnviar = document.querySelector('#sendBtn');
+
+        const historicoConversa = [];
+
+        function mensagemTela(autor, texto) {
+            const divMensagem = document.createElement('div');
+            
+            // Define o tipo de mensagem para estilização CSS
+            if (autor === 'system') {
+                divMensagem.className = 'message system';
+                divMensagem.innerHTML = `<span>${texto}</span>`;
+            } else {
+                const ehUsuario = autor === usuarioLogado;
+                divMensagem.className = `message ${ehUsuario ? 'user' : 'character'}`;
+                
+                const horaAtual = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+                divMensagem.innerHTML = `
+                    <p>${texto}</p>
+                    <span class="time">${horaAtual}</span>
+                `;
+            }
+
+            caixaChat.appendChild(divMensagem);
+            caixaChat.scrollTop = caixaChat.scrollHeight; // Rola até a última mensagem
+        }
+
+        btnEnviar.addEventListener('click', async () => {
+            const textoMensagem = inputMensagem.value.trim();
+
+            if (!textoMensagem) return;
+
+            mensagemTela(usuarioLogado, textoMensagem);
+            historicoConversa.push({ role: "user", content: textoMensagem });
+
+            inputMensagem.value = '';
+            btnEnviar.disabled = true;
+
+            try {
+                const respostaServidor = await fetch('/chat', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ historico: historicoConversa })
+                });
+
+                const dados = await respostaServidor.json();
+                
+                if (!respostaServidor.ok) {
+                    mensagemTela('system', dados.erro || 'Erro ao processar requisição');
+                    return;
+                }
+
+                mensagemTela('Giyu Tomioka', dados.resposta);
+                historicoConversa.push({ role: "assistant", content: dados.resposta });
+            } 
+            catch (erro) {
+                mensagemTela('system', 'Erro ao conectar com o servidor');
+            } 
+            finally {
+                btnEnviar.disabled = false;
+            }
+        });
+    </script>
+
+</body>
+</html>

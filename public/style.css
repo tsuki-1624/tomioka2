@@ -1,0 +1,175 @@
+:root {
+    --bg-main: #0b141a;
+    --chat-bg: #0b141a;
+    --header-bg: #202c33;
+    --card-bg: #111b21;
+    --message-out: #005c4b;
+    --message-in: #202c33;
+    --text-primary: #e9edef;
+    --text-secondary: #8696a0;
+    --icon-color: #aebac1;
+    --input-bg: #2a3942;
+    --border-color: #222d34;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Helvetica, Arial, sans-serif;
+}
+
+body {
+    background-color: var(--bg-main);
+    color: var(--text-primary);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+/* Container do WhatsApp */
+.whatsapp-container {
+    width: 100%;
+    max-width: 900px;
+    height: 90vh;
+    background-color: var(--card-bg);
+    display: flex;
+    flex-direction: column;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.5);
+}
+
+/* Cabeçalho do Chat */
+.chat-header {
+    background-color: var(--header-bg);
+    padding: 10px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.avatar img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.status-info h2 {
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.status-online {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+}
+
+.header-actions {
+    display: flex;
+    gap: 20px;
+    color: var(--icon-color);
+    font-size: 1.1rem;
+    cursor: pointer;
+}
+
+/* Área de Mensagens */
+.chat-messages {
+    flex: 1;
+    background-color: var(--chat-bg);
+    padding: 20px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.message {
+    max-width: 65%;
+    padding: 8px 12px;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    position: relative;
+    word-break: break-word;
+}
+
+.message.system {
+    align-self: center;
+    background-color: #182229;
+    color: #ffd27d;
+    font-size: 0.75rem;
+    padding: 6px 12px;
+    border-radius: 6px;
+    margin-bottom: 10px;
+}
+
+.message.character {
+    align-self: flex-start;
+    background-color: var(--message-in);
+    border-top-left-radius: 0;
+}
+
+.message.user {
+    align-self: flex-end;
+    background-color: var(--message-out);
+    border-top-right-radius: 0;
+}
+
+.message .time {
+    display: block;
+    font-size: 0.68rem;
+    color: var(--text-secondary);
+    text-align: right;
+    margin-top: 4px;
+}
+
+/* Campo de Digitação */
+.chat-input-area {
+    background-color: var(--header-bg);
+    padding: 10px 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.icon-btn {
+    color: var(--icon-color);
+    font-size: 1.3rem;
+    cursor: pointer;
+}
+
+.chat-input-area input {
+    flex: 1;
+    background-color: var(--input-bg);
+    border: none;
+    outline: none;
+    padding: 10px 16px;
+    border-radius: 8px;
+    color: var(--text-primary);
+    font-size: 0.95rem;
+}
+
+.chat-input-area input::placeholder {
+    color: var(--text-secondary);
+}
+
+.send-btn {
+    background: none;
+    border: none;
+    color: var(--icon-color);
+    font-size: 1.2rem;
+    cursor: pointer;
+}
+
+.send-btn:hover {
+    color: #00a884;
+}
